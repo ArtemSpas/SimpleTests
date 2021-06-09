@@ -15,15 +15,15 @@ func main() {
 	wg.Add(N)
 	for i := 0; i < N; i++ {
 		k := 5
-		go func() {
+		go func(i int) {
 			defer wg.Done()
 			mu.Lock()
 			fmt.Println(i, k)
 			m[i] = k
 			mu.Unlock()
-		}()
+		}(i)
 	}
 	wg.Wait()
-	fmt.Println(len(m))
-	fmt.Println(m[0])
+
+	fmt.Printf("%#v\n", m)
 }
